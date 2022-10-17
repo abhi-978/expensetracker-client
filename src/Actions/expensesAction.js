@@ -33,7 +33,6 @@ export const saveExpense = (expense) => {
 };
 
 export const startGetAllExpenses = (config) => {
-  console.log(config);
   return (dispatch) => {
     axios
       .get('http://localhost:3058/api/expenses', config)

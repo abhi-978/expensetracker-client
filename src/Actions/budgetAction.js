@@ -26,7 +26,6 @@ export const startUpdateBudget = (id, body) => {
     axios
       .put(`http://localhost:3058/api/budget/${id}`, body, config)
       .then((response) => {
-        console.log(response.data);
         dispatch(updateBudget(response.data));
       })
       .catch((err) => {
@@ -42,7 +41,7 @@ export const updateBudget = (budget) => {
   };
 };
 
-export const startGetBudget = (id) => {
+export const startGetBudget = (id, config) => {
   return (dispatch) => {
     axios
       .get(`http://localhost:3058/api/budget/${id}`, config)

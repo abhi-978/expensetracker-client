@@ -6,7 +6,6 @@ import {
   Col,
   FormGroup,
   FormControl,
-  FormText,
   FormLabel,
   Button,
 } from 'react-bootstrap';
@@ -20,13 +19,19 @@ import CategoryEditModal from '../Components/Modals/CategoryEditModal';
 
 const CategoriesSection = (props) => {
   const [newCatg, setNewCatg] = useState('');
-  const [minStopper, setMinStopper] = useState(false);
   const [show, setShow] = useState(false);
 
   const dispatch = useDispatch();
 
   const categories = useSelector((state) => state.categories);
   const userId = useSelector((state) => state.user._id);
+  const token = useSelector((state) => state.token);
+
+  const config = {
+    headers: {
+      Authorization: token,
+    },
+  };
 
   const handleChange = (e) => {
     setNewCatg(e.target.value);
@@ -41,11 +46,11 @@ const CategoriesSection = (props) => {
       userId,
       name: newCatg,
     };
-    dispatch(startSaveCategory(newCategory, clearFields));
+    dispatch(startSaveCategory(newCategory, clearFields, config));
   };
 
   const handleDeleteCategory = (id) => {
-    dispatch(startDeleteCategory(id));
+    dispatch(startDeleteCategory(id, config));
   };
 
   const handleShow = () => {
@@ -80,9 +85,6 @@ const CategoriesSection = (props) => {
                     value={newCatg}
                     onChange={handleChange}
                   />
-                  {minStopper && (
-                    <FormText className="p-2 text-danger">{'aaa'}</FormText>
-                  )}
                 </div>
                 <div className="col-4 px-4">
                   <Button className="px-5" onClick={handleAddCategory}>
@@ -126,6 +128,7 @@ const CategoriesSection = (props) => {
                   show={show}
                   category={catg}
                   handleClose={handleClose}
+                  config={config}
                 />
               </ListGroup.Item>
             ))}

@@ -28,7 +28,7 @@ export const startSaveProfileImage = (formdata, config, onHide) => {
     axios
       .post(`http://localhost:3058/users/profile/image`, formdata, config)
       .then((response) => {
-        dispatch(startGetUserDetails());
+        dispatch(startGetUserDetails(config.headers.Authorization));
         onHide();
       })
       .catch((err) => {

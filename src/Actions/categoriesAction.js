@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { config } from '../Helpers/axiosConfig';
 
 export const startGetCategories = (config) => {
   return (dispatch) => {
@@ -21,12 +20,11 @@ export const setCategories = (categories) => {
   };
 };
 
-export const startUpdateCategory = (id, body, handleClose) => {
+export const startUpdateCategory = (id, body, handleClose, config) => {
   return (dispatch) => {
     axios
       .put(`http://localhost:3058/api/categories/${id}`, body, config)
       .then((response) => {
-        console.log(response.data);
         dispatch(updateCategory(response.data));
         handleClose();
       })
@@ -43,12 +41,11 @@ export const updateCategory = (category) => {
   };
 };
 
-export const startSaveCategory = (body, clearFields) => {
+export const startSaveCategory = (body, clearFields, config) => {
   return (dispatch) => {
     axios
       .post(`http://localhost:3058/api/categories`, body, config)
       .then((response) => {
-        console.log(response.data);
         dispatch(saveCategory(response.data));
         clearFields();
       })
@@ -65,12 +62,11 @@ export const saveCategory = (category) => {
   };
 };
 
-export const startDeleteCategory = (id) => {
+export const startDeleteCategory = (id, config) => {
   return (dispatch) => {
     axios
       .delete(`http://localhost:3058/api/categories/${id}`, config)
       .then((response) => {
-        console.log(response.data);
         dispatch(deleteCategory(response.data));
       })
       .catch((err) => {

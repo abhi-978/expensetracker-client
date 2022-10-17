@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
   Col,
   Container,
@@ -16,11 +16,9 @@ const BudgetSection = (props) => {
   const defaultBalance = useSelector((state) => state.budget.balance);
   const budgetId = useSelector((state) => state.budget._id);
   const userId = useSelector((state) => state.user._id);
-  const [budgetBalance, setBudgetBalance] = useState(defaultBalance);
+  const [budgetBalance, setBudgetBalance] = useState('');
   const [minStopper, setMinStopper] = useState(false);
   const dispatch = useDispatch();
-
-  // useEffect(() => {}, []);
 
   const handleChange = (e) => {
     setBudgetBalance(e.target.value);
@@ -45,6 +43,9 @@ const BudgetSection = (props) => {
       <Container>
         <div>
           <p className="fs-3">Set your Budget here</p>
+        </div>
+        <div>
+          <p className="p-3 fs-4">Current budget : {defaultBalance}</p>
         </div>
         <Form onSubmit={handleSubmit}>
           <Row>

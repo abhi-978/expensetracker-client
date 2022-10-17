@@ -5,7 +5,14 @@ import ProfileImgChangeModal from '../../Components/Modals/ProfileImgChangeModal
 
 const Profile = (props) => {
   const user = useSelector((state) => state.user);
+  const token = useSelector((state) => state.token);
   const [show, setShow] = useState(false);
+
+  const config = {
+    headers: {
+      Authorization: token,
+    },
+  };
 
   const imageStyles = {
     display: 'block',
@@ -24,7 +31,7 @@ const Profile = (props) => {
 
   return (
     <Container>
-      {show && <ProfileImgChangeModal show={show} onHide={handleClose} />}
+      {show && <ProfileImgChangeModal show={show} onHide={handleClose} config={config}/>}
       <div className="d-flex flex-column justify-content-center align-items-center">
         <div className="my-4">
           {user.image ? (

@@ -25,13 +25,6 @@ const CategoriesSection = (props) => {
 
   const categories = useSelector((state) => state.categories);
   const userId = useSelector((state) => state.user._id);
-  const token = useSelector((state) => state.token);
-
-  const config = {
-    headers: {
-      Authorization: token,
-    },
-  };
 
   const handleChange = (e) => {
     setNewCatg(e.target.value);
@@ -46,11 +39,11 @@ const CategoriesSection = (props) => {
       userId,
       name: newCatg,
     };
-    dispatch(startSaveCategory(newCategory, clearFields, config));
+    dispatch(startSaveCategory(newCategory, clearFields));
   };
 
   const handleDeleteCategory = (id) => {
-    dispatch(startDeleteCategory(id, config));
+    dispatch(startDeleteCategory(id));
   };
 
   const handleShow = () => {
@@ -128,7 +121,6 @@ const CategoriesSection = (props) => {
                   show={show}
                   category={catg}
                   handleClose={handleClose}
-                  config={config}
                 />
               </ListGroup.Item>
             ))}

@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux';
 import { startUpdateCategory } from '../../Actions/categoriesAction';
 
 const CategoryEditModal = (props) => {
-  const { category, show, handleClose, config } = props;
+  const { category, show, handleClose } = props;
   const [name, setName] = useState(category.name);
   const dispatch = useDispatch();
 
@@ -17,9 +17,7 @@ const CategoryEditModal = (props) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const editedCategory = { ...category, name };
-    dispatch(
-      startUpdateCategory(category._id, editedCategory, handleClose, config)
-    );
+    dispatch(startUpdateCategory(category._id, editedCategory, handleClose));
   };
 
   return (

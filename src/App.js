@@ -15,8 +15,6 @@ const App = (props) => {
     if (localStorage.getItem('token')) {
       dispatch(setSavedToken(localStorage.getItem('token')));
       dispatch(startGetUserDetails(token || localStorage.getItem('token')));
-    } else {
-      if (!localStorage.getItem('token')) navigate('/login');
     }
   }, [dispatch, token, navigate]);
 

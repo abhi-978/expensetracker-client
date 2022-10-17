@@ -9,6 +9,7 @@ import { setNoError } from '../Actions/errorsAction';
 import { removeToken } from '../Actions/tokenAction';
 
 const logoutUser = (dispatch) => {
+  localStorage.removeItem('token');
   dispatch(setDefaultBudget());
   dispatch(setDefaultCategory());
   dispatch(setDefaultDelExpenses());

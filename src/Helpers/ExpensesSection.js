@@ -7,7 +7,6 @@ import { startDeleteOneExpense } from '../Actions/expensesAction';
 const ExpensesSection = (props) => {
   const { expenseArr } = props;
   const categories = useSelector((state) => state.categories);
-  const token = useSelector((state) => state.token);
   const [show, setShow] = useState(false);
   const [exp, setExp] = useState({});
   const dispatch = useDispatch();
@@ -31,7 +30,7 @@ const ExpensesSection = (props) => {
   };
 
   const handleDelete = (id) => {
-    dispatch(startDeleteOneExpense(id, token));
+    dispatch(startDeleteOneExpense(id));
   };
 
   return (

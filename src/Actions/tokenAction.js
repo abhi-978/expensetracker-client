@@ -13,7 +13,8 @@ export const startLoginUser = (body, clearfields) => {
           dispatch(setToken(token));
           dispatch(setLoginErrors(''));
           clearfields();
-          dispatch(startGetUserDetails(token));
+          window.location.reload();
+          dispatch(startGetUserDetails());
         } else {
           dispatch(setToken(''));
         }

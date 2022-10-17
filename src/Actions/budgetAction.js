@@ -1,10 +1,9 @@
-import axios from 'axios';
-import { config } from '../Helpers/axiosConfig';
+import axiosWithHeaders from '../Helpers/axiosConfig';
 
-export const startSetBudget = (body, config) => {
+export const startSetBudget = (body) => {
   return (dispatch) => {
-    axios
-      .post('http://localhost:3058/api/budget', body, config)
+    axiosWithHeaders
+      .post('/api/budget', body)
       .then((response) => {
         dispatch(setBudget(response.data));
       })
@@ -23,8 +22,8 @@ export const setBudget = (budget) => {
 
 export const startUpdateBudget = (id, body) => {
   return (dispatch) => {
-    axios
-      .put(`http://localhost:3058/api/budget/${id}`, body, config)
+    axiosWithHeaders
+      .put(`/api/budget/${id}`, body)
       .then((response) => {
         dispatch(updateBudget(response.data));
       })
@@ -41,12 +40,13 @@ export const updateBudget = (budget) => {
   };
 };
 
-export const startGetBudget = (id, config) => {
+export const startGetBudget = (id) => {
   return (dispatch) => {
-    axios
-      .get(`http://localhost:3058/api/budget/${id}`, config)
+    axiosWithHeaders
+      .get(`/api/budget/${id}`)
       .then((response) => {
         console.log(response.data);
+        dispatch(setBudget(response.data));
       })
       .catch((err) => {
         console.log(err);

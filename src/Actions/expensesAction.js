@@ -1,15 +1,12 @@
-import axios from 'axios';
-import { config } from '../Helpers/axiosConfig';
+import axiosWithHeaders from '../Helpers/axiosConfig';
 import { startGetDeletedExpenses } from './deletedExpensesAction';
 import { setCreateExpenseError } from './errorsAction';
 
 export const startSaveExpense = (body, clearFields, handleClose) => {
   return (dispatch) => {
-    axios
-      .post('http://localhost:3058/api/expenses', body, config)
+    axiosWithHeaders
+      .post('/api/expenses', body)
       .then((response) => {
-        console.log(response.data);
-        console.log(response.data.hasOwnProperty('errors'));
         if (response.data.hasOwnProperty('errors')) {
           dispatch(setCreateExpenseError(response.data.errors.amount.message));
         } else {
@@ -32,10 +29,10 @@ export const saveExpense = (expense) => {
   };
 };
 
-export const startGetAllExpenses = (config) => {
+export const startGetAllExpenses = () => {
   return (dispatch) => {
-    axios
-      .get('http://localhost:3058/api/expenses', config)
+    axiosWithHeaders
+      .get('/api/expenses')
       .then((response) => {
         dispatch(getAllExpenses(response.data));
       })
@@ -54,8 +51,8 @@ export const getAllExpenses = (expensesArr) => {
 
 export const startEditExpense = (id, body, clearFields, handleClose) => {
   return (dispatch) => {
-    axios
-      .put(`http://localhost:3058/api/expenses/${id}`, body, config)
+    axiosWithHeaders
+      .put(`/api/expenses/${id}`, body)
       .then((response) => {
         dispatch(editExpense(response.data));
         clearFields();
@@ -75,17 +72,12 @@ export const editExpense = (expense) => {
 };
 
 export const startDeleteOneExpense = (id, token) => {
-  const config = {
-    headers: {
-      Authorization: token,
-    },
-  };
   return (dispatch) => {
-    axios
-      .delete(`http://localhost:3058/api/expenses/${id}`, config)
+    axiosWithHeaders
+      .delete(`/api/expenses/${id}`)
       .then((response) => {
         dispatch(deleteOneExpense(id));
-        dispatch(startGetDeletedExpenses(config));
+        dispatch(startGetDeletedExpenses());
       })
       .catch((err) => {
         console.log(err);

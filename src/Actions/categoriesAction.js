@@ -1,9 +1,9 @@
-import axios from 'axios';
+import axiosWithHeaders from '../Helpers/axiosConfig';
 
-export const startGetCategories = (config) => {
+export const startGetCategories = () => {
   return (dispatch) => {
-    axios
-      .get('http://localhost:3058/api/categories', config)
+    axiosWithHeaders
+      .get('/api/categories')
       .then((response) => {
         dispatch(setCategories(response.data));
       })
@@ -20,10 +20,10 @@ export const setCategories = (categories) => {
   };
 };
 
-export const startUpdateCategory = (id, body, handleClose, config) => {
+export const startUpdateCategory = (id, body, handleClose) => {
   return (dispatch) => {
-    axios
-      .put(`http://localhost:3058/api/categories/${id}`, body, config)
+    axiosWithHeaders
+      .put(`/api/categories/${id}`, body)
       .then((response) => {
         dispatch(updateCategory(response.data));
         handleClose();
@@ -41,10 +41,10 @@ export const updateCategory = (category) => {
   };
 };
 
-export const startSaveCategory = (body, clearFields, config) => {
+export const startSaveCategory = (body, clearFields) => {
   return (dispatch) => {
-    axios
-      .post(`http://localhost:3058/api/categories`, body, config)
+    axiosWithHeaders
+      .post(`/api/categories`, body)
       .then((response) => {
         dispatch(saveCategory(response.data));
         clearFields();
@@ -62,10 +62,10 @@ export const saveCategory = (category) => {
   };
 };
 
-export const startDeleteCategory = (id, config) => {
+export const startDeleteCategory = (id) => {
   return (dispatch) => {
-    axios
-      .delete(`http://localhost:3058/api/categories/${id}`, config)
+    axiosWithHeaders
+      .delete(`/api/categories/${id}`)
       .then((response) => {
         dispatch(deleteCategory(response.data));
       })

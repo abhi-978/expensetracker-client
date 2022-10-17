@@ -1,13 +1,11 @@
-import axios from 'axios';
-import { config } from '../Helpers/axiosConfig';
+import axiosWithHeaders from '../Helpers/axiosConfig';
 import { startGetUserDetails } from './userAction';
 
 export const startGetOneExpense = (id) => {
   return (dispatch) => {
-    axios
-      .get(`http://localhost:3058/api/expenses/${id}`, config)
+    axiosWithHeaders
+      .get(`/api/expenses/${id}`)
       .then((response) => {
-        console.log(response.data);
         dispatch(getOneExpense(response.data));
       })
       .catch((err) => {
@@ -23,13 +21,14 @@ export const getOneExpense = (expense) => {
   };
 };
 
-export const startSaveProfileImage = (formdata, config, onHide) => {
+export const startSaveProfileImage = (formdata, onHide) => {
   return (dispatch) => {
-    axios
-      .post(`http://localhost:3058/users/profile/image`, formdata, config)
+    axiosWithHeaders
+      .post(`/users/profile/image`, formdata)
       .then((response) => {
-        dispatch(startGetUserDetails(config.headers.Authorization));
+        dispatch(startGetUserDetails());
         onHide();
+        window.location.reload();
       })
       .catch((err) => {
         console.log(err);

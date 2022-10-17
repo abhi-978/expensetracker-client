@@ -14,12 +14,7 @@ const DeletedExpensesSection = (props) => {
 
   useEffect(() => {
     if (token) {
-      const config = {
-        headers: {
-          Authorization: token,
-        },
-      };
-      dispatch(startGetDeletedExpenses(config));
+      dispatch(startGetDeletedExpenses());
     }
   }, [token, dispatch]);
 

@@ -6,7 +6,7 @@ import { startSaveProfileImage } from '../../Actions/tempDataAction';
 import { useDispatch } from 'react-redux';
 
 const ProfileImgChangeModal = (props) => {
-  const { show, onHide, config } = props;
+  const { show, onHide } = props;
   const [file, setFile] = useState({});
   const dispatch = useDispatch();
 
@@ -14,8 +14,7 @@ const ProfileImgChangeModal = (props) => {
     e.preventDefault();
     const formData = new FormData();
     formData.append('image', file);
-
-    dispatch(startSaveProfileImage(formData, config, onHide));
+    dispatch(startSaveProfileImage(formData, onHide));
   };
   const handlChangeFile = (val) => {
     setFile(val);

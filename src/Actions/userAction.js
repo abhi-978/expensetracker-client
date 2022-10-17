@@ -1,22 +1,17 @@
-import axios from 'axios';
+import axiosWithHeaders from '../Helpers/axiosConfig';
 import { startSetBudget } from './budgetAction';
 import { startGetCategories } from './categoriesAction';
 import { startGetAllExpenses } from './expensesAction';
 
-export const startGetUserDetails = (token) => {
-  const config = {
-    headers: {
-      Authorization: token,
-    },
-  };
+export const startGetUserDetails = () => {
   return (dispatch) => {
-    axios
-      .get('http://localhost:3058/users/account', config)
+    axiosWithHeaders
+      .get('/users/account')
       .then((response) => {
         dispatch(setUserDetails(response.data));
-        dispatch(startSetBudget({ userId: response.data._id }, config));
-        dispatch(startGetCategories(config));
-        dispatch(startGetAllExpenses(config));
+        dispatch(startSetBudget({ userId: response.data._id }));
+        dispatch(startGetCategories());
+        dispatch(startGetAllExpenses());
       })
       .catch((err) => {
         console.log(err);

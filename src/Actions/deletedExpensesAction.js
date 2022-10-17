@@ -1,10 +1,10 @@
-import axios from 'axios';
+import axiosWithHeaders from '../Helpers/axiosConfig';
 import { startGetAllExpenses } from './expensesAction';
 
-export const startGetDeletedExpenses = (config) => {
+export const startGetDeletedExpenses = () => {
   return (dispatch) => {
-    axios
-      .get(`http://localhost:3058/api/expenses/deleted`, config)
+    axiosWithHeaders
+      .get(`/api/expenses/deleted`)
       .then((response) => {
         dispatch(getDeletedExpenses(response.data));
       })
@@ -21,18 +21,13 @@ export const getDeletedExpenses = (delExpensesArr) => {
   };
 };
 
-export const startRestoreDeletedExpense = (id, token) => {
-  const config = {
-    headers: {
-      Authorization: token,
-    },
-  };
+export const startRestoreDeletedExpense = (id) => {
   return (dispatch) => {
-    axios
-      .put(`http://localhost:3058/api/expenses/restore/${id}`, {}, config)
+    axiosWithHeaders
+      .put(`/api/expenses/restore/${id}`, {})
       .then((response) => {
         dispatch(restoreDeletedExpense(id));
-        dispatch(startGetAllExpenses(config));
+        dispatch(startGetAllExpenses());
       })
       .catch((err) => {
         console.log(err);
